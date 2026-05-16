@@ -183,7 +183,7 @@ button:active {
   width: 190px;
   height: 270px;
   transform-origin: 50% 86%;
-  animation: polygon-body-throw var(--throw-duration) ease-in-out forwards;
+  animation: polygon-body-throw var(--motion-duration) ease-in-out forwards;
 }
 
 .ground-shadow {
@@ -204,7 +204,7 @@ button:active {
   left: 60px;
   width: 78px;
   height: 74px;
-  animation: polygon-head-throw var(--throw-duration) ease-in-out forwards;
+  animation: polygon-head-throw var(--motion-duration) ease-in-out forwards;
 }
 
 .head-face,
@@ -283,7 +283,7 @@ button:active {
   left: 50px;
   width: 96px;
   height: 112px;
-  animation: polygon-torso-throw var(--throw-duration) ease-in-out forwards;
+  animation: polygon-torso-throw var(--motion-duration) ease-in-out forwards;
 }
 
 .body-face-a {
@@ -340,7 +340,7 @@ button:active {
 }
 
 .polygon-arm-front {
-  animation: polygon-front-arm-throw var(--throw-duration) ease-in-out forwards;
+  animation: polygon-front-arm-throw var(--motion-duration) ease-in-out forwards;
 }
 
 .upper-arm,
@@ -367,7 +367,7 @@ button:active {
   background: #f59e7d;
   clip-path: polygon(0 12%, 100% 0, 88% 92%, 6% 100%);
   transform-origin: 5px 12px;
-  animation: polygon-forearm-throw var(--throw-duration) ease-in-out forwards;
+  animation: polygon-forearm-throw var(--motion-duration) ease-in-out forwards;
 }
 
 .hand {
@@ -394,7 +394,7 @@ button:active {
     inset -14px -10px 0 rgba(226, 232, 240, 0.9);
   clip-path: polygon(0 0, 100% 0, 100% 76%, 78% 100%, 0 100%);
   transform-origin: 64% 78%;
-  animation: crumple-paper var(--throw-duration) ease-in-out forwards;
+  animation: crumple-paper var(--motion-duration) ease-in-out forwards;
 }
 
 .paper-fold {
@@ -438,8 +438,8 @@ button:active {
 .paper-ball {
   position: absolute;
   z-index: 8;
-  bottom: 160px;
-  left: clamp(164px, 27vw, 244px);
+  bottom: 148px;
+  left: clamp(154px, 25vw, 226px);
   width: 42px;
   height: 38px;
   border-radius: 45% 55% 52% 48%;
@@ -449,7 +449,9 @@ button:active {
   clip-path: polygon(18% 0, 72% 6%, 100% 42%, 84% 88%, 32% 100%, 0 66%);
   opacity: 0;
   transform-origin: center;
-  animation: paper-ball-flight var(--throw-duration) cubic-bezier(0.12, 0.58, 0.2, 1) forwards;
+  animation:
+    paper-ball-hand var(--motion-duration) ease-in-out forwards,
+    paper-ball-flight var(--flight-duration) cubic-bezier(0.12, 0.58, 0.2, 1) forwards var(--motion-duration);
 }
 
 .crease {
@@ -493,7 +495,8 @@ button:active {
   background: rgba(255, 255, 255, 0.8);
   opacity: 0;
   filter: blur(0.2px);
-  animation: arc-streak var(--throw-duration) ease-out forwards;
+  animation: arc-streak var(--flight-duration) ease-out forwards;
+  animation-delay: var(--motion-duration);
 }
 
 .throw-arc span:nth-child(1) {
@@ -507,7 +510,7 @@ button:active {
   left: 56%;
   width: 34px;
   transform: rotate(-28deg);
-  animation-delay: calc(var(--throw-duration) * 0.07);
+  animation-delay: calc(var(--motion-duration) + var(--flight-duration) * 0.18);
 }
 
 .throw-arc span:nth-child(3) {
@@ -515,7 +518,7 @@ button:active {
   left: 72%;
   width: 24px;
   transform: rotate(-20deg);
-  animation-delay: calc(var(--throw-duration) * 0.13);
+  animation-delay: calc(var(--motion-duration) + var(--flight-duration) * 0.36);
 }
 
 .destination-orb {
@@ -533,7 +536,8 @@ button:active {
     0 24px 50px rgba(15, 23, 42, 0.22);
   opacity: 0;
   transform: translateY(10px) scale(0.84);
-  animation: reveal-orb var(--throw-duration) ease-out forwards;
+  animation: reveal-orb var(--flight-duration) ease-out forwards;
+  animation-delay: calc(var(--motion-duration) + var(--flight-duration) * 0.55);
 }
 
 .destination-orb span {
@@ -542,32 +546,32 @@ button:active {
 
 @keyframes polygon-body-throw {
   0%,
-  32% {
+  24% {
     transform: rotate(0deg) translateY(0);
   }
 
-  45% {
-    transform: rotate(-9deg) translate(-8px, 2px);
-  }
-
   58% {
-    transform: rotate(14deg) translate(14px, -5px);
+    transform: rotate(-13deg) translate(-12px, 4px);
   }
 
-  74%,
+  78% {
+    transform: rotate(17deg) translate(16px, -7px);
+  }
+
+  92%,
   100% {
-    transform: rotate(3deg) translate(4px, 0);
+    transform: rotate(2deg) translate(4px, 0);
   }
 }
 
 @keyframes polygon-head-throw {
   0%,
-  42% {
+  46% {
     transform: rotate(0deg);
   }
 
-  54% {
-    transform: rotate(10deg) translateX(4px);
+  78% {
+    transform: rotate(12deg) translate(5px, -1px);
   }
 
   100% {
@@ -577,16 +581,16 @@ button:active {
 
 @keyframes polygon-torso-throw {
   0%,
-  34% {
+  42% {
     transform: skewX(0deg);
   }
 
-  46% {
-    transform: skewX(-8deg);
+  62% {
+    transform: skewX(-11deg);
   }
 
-  60% {
-    transform: skewX(9deg);
+  78% {
+    transform: skewX(12deg);
   }
 
   100% {
@@ -596,43 +600,51 @@ button:active {
 
 @keyframes polygon-front-arm-throw {
   0% {
-    transform: rotate(4deg) translate(0, 0);
+    transform: rotate(8deg) translate(0, 0);
   }
 
-  18% {
-    transform: rotate(0deg) translate(-4px, 3px);
+  24% {
+    transform: rotate(2deg) translate(-4px, 3px);
   }
 
-  34% {
-    transform: rotate(-18deg) translate(-8px, 10px);
+  44% {
+    transform: rotate(-24deg) translate(-9px, 10px);
   }
 
-  48% {
-    transform: rotate(-72deg) translate(-22px, 18px);
+  62% {
+    transform: rotate(-105deg) translate(-34px, 24px);
   }
 
-  60% {
-    transform: rotate(44deg) translate(24px, -22px);
+  72% {
+    transform: rotate(-128deg) translate(-42px, 30px);
   }
 
-  76%,
+  88% {
+    transform: rotate(58deg) translate(34px, -30px);
+  }
+
+  96%,
   100% {
-    transform: rotate(18deg) translate(8px, -4px);
+    transform: rotate(20deg) translate(10px, -3px);
   }
 }
 
 @keyframes polygon-forearm-throw {
   0%,
-  28% {
+  40% {
     transform: rotate(0deg);
   }
 
-  43% {
-    transform: rotate(58deg);
+  60% {
+    transform: rotate(72deg);
   }
 
-  60% {
-    transform: rotate(-46deg);
+  72% {
+    transform: rotate(92deg);
+  }
+
+  88% {
+    transform: rotate(-62deg);
   }
 
   100% {
@@ -647,84 +659,130 @@ button:active {
     border-radius: 8px;
   }
 
-  18% {
+  24% {
     transform: rotate(-14deg) scale(0.86, 0.78) skew(-8deg, 5deg);
     clip-path: polygon(10% 4%, 94% 0, 100% 70%, 76% 100%, 7% 84%);
   }
 
-  34% {
+  46% {
     opacity: 1;
     transform: rotate(26deg) scale(0.34, 0.42);
     border-radius: 38% 44% 52% 48%;
     clip-path: polygon(18% 0, 72% 6%, 100% 42%, 84% 88%, 32% 100%, 0 66%);
   }
 
-  42%,
+  58%,
   100% {
     opacity: 0;
     transform: rotate(36deg) scale(0.1);
   }
 }
 
-@keyframes paper-ball-flight {
-  0%,
-  32% {
+@keyframes paper-ball-hand {
+  0% {
     opacity: 0;
-    transform: translate(0, 0) rotate(0deg) scale(0.4);
+    left: clamp(154px, 25vw, 226px);
+    bottom: 148px;
+    transform: rotate(10deg) scale(0.34);
   }
 
-  36% {
+  42% {
+    opacity: 0;
+    left: clamp(154px, 25vw, 226px);
+    bottom: 148px;
+    transform: rotate(20deg) scale(0.54);
+  }
+
+  50% {
     opacity: 1;
-    transform: translate(0, 0) rotate(18deg) scale(1);
+    left: clamp(160px, 26vw, 236px);
+    bottom: 156px;
+    transform: rotate(34deg) scale(0.9);
   }
 
-  51% {
-    transform: translate(22px, 34px) rotate(-72deg) scale(0.94);
-  }
-
-  63% {
+  66% {
     opacity: 1;
-    transform: translate(calc(var(--flight-x) * 0.36), calc(var(--flight-y) * -0.62)) rotate(260deg) scale(0.74);
+    left: clamp(106px, 18vw, 158px);
+    bottom: 190px;
+    transform: rotate(-64deg) scale(1);
   }
 
   82% {
-    opacity: 0.9;
-    transform: translate(calc(var(--flight-x) * 0.72), calc(var(--flight-y) * -0.92)) rotate(620deg) scale(0.42);
+    opacity: 1;
+    left: clamp(120px, 20vw, 176px);
+    bottom: 212px;
+    transform: rotate(-126deg) scale(1);
   }
 
   100% {
-    opacity: 0.08;
-    transform: translate(var(--flight-x), calc(var(--flight-y) * -1)) rotate(920deg) scale(0.16);
+    opacity: 1;
+    left: clamp(210px, 34vw, 292px);
+    bottom: 184px;
+    transform: rotate(22deg) scale(1);
+  }
+}
+
+@keyframes paper-ball-flight {
+  0% {
+    opacity: 1;
+    left: clamp(210px, 34vw, 292px);
+    bottom: 184px;
+    transform: rotate(22deg) scale(1);
+  }
+
+  18% {
+    opacity: 1;
+    left: clamp(250px, 40vw, 344px);
+    bottom: 228px;
+    transform: rotate(150deg) scale(0.94);
+  }
+
+  48% {
+    left: 56%;
+    bottom: 74%;
+    transform: rotate(420deg) scale(0.72);
+  }
+
+  76% {
+    opacity: 1;
+    left: calc(100% - 122px);
+    bottom: calc(100% - 120px);
+    transform: rotate(720deg) scale(0.42);
+  }
+
+  100% {
+    opacity: 0;
+    left: calc(100% - 82px);
+    bottom: calc(100% - 78px);
+    transform: rotate(980deg) scale(0.16);
   }
 }
 
 @keyframes arc-streak {
-  0%,
-  54% {
+  0% {
     opacity: 0;
     transform: translate(0, 0) rotate(-32deg) scaleX(0.5);
   }
 
-  66% {
+  22% {
     opacity: 0.86;
     transform: translate(18px, -18px) rotate(-32deg) scaleX(1);
   }
 
-  86%,
+  74%,
   100% {
     opacity: 0;
-    transform: translate(66px, -44px) rotate(-32deg) scaleX(0.2);
+    transform: translate(110px, -86px) rotate(-32deg) scaleX(0.2);
   }
 }
 
 @keyframes reveal-orb {
-  0%,
-  62% {
+  0% {
     opacity: 0;
     transform: translateY(10px) scale(0.84);
   }
 
-  82%,
+  45%,
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);

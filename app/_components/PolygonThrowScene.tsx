@@ -1,21 +1,21 @@
 import type { CSSProperties } from "react";
 import type { Destination } from "../_lib/destinations";
-import { getThrowDuration } from "../_lib/destinations";
+import {
+  getThrowMotionDuration,
+  THROW_FLIGHT_DURATION,
+} from "../_lib/destinations";
 
 type PolygonThrowSceneProps = {
   destination: Destination;
 };
 
 export function PolygonThrowScene({ destination }: PolygonThrowSceneProps) {
-  const duration = getThrowDuration(destination.level);
-  const flightX = Math.min(330 + destination.level * 28, 590);
-  const flightY = Math.min(170 + destination.level * 16, 315);
+  const motionDuration = getThrowMotionDuration(destination.level);
   const spaceOpacity = destination.level >= 7 ? 0.85 : 0.34;
 
   const sceneStyle = {
-    "--throw-duration": `${duration}ms`,
-    "--flight-x": `${flightX}px`,
-    "--flight-y": `${flightY}px`,
+    "--motion-duration": `${motionDuration}ms`,
+    "--flight-duration": `${THROW_FLIGHT_DURATION}ms`,
     "--space-opacity": spaceOpacity,
   } as CSSProperties;
 
