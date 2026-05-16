@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="10" y1="8" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fb7185"/>
+      <stop offset="0.52" stop-color="#f97316"/>
+      <stop offset="1" stop-color="#facc15"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="18" y1="16" x2="43" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#dbeafe"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
+  <path d="M12 43c10-14 21-19 39-24" fill="none" stroke="#fff7ed" stroke-width="5" stroke-linecap="round" opacity=".82"/>
+  <path d="M44 13l7 6-9 3" fill="none" stroke="#fff7ed" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".82"/>
+  <path d="M18 18h24l8 9v21H18z" fill="url(#paper)"/>
+  <path d="M42 18v10h8" fill="#93c5fd"/>
+  <path d="M24 29h16M24 36h20M24 43h12" stroke="#f43f5e" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="43" cy="45" r="9" fill="#f8fafc"/>
+  <path d="M37 44l9-5M39 50l10-8M43 53l6-6" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round"/>
+</svg>
