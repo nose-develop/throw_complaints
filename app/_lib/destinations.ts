@@ -124,20 +124,20 @@ export function getDestinationByLength(length: number): Destination {
 
 export function getThrowDuration(level: number): number {
   if (level <= 2) {
-    return 1000;
+    return 1800;
   }
 
   if (level <= 4) {
-    return 1300;
-  }
-
-  if (level <= 6) {
-    return 1700;
-  }
-
-  if (level <= 8) {
     return 2200;
   }
 
-  return 2800;
+  if (level <= 6) {
+    return 2700;
+  }
+
+  if (level <= 8) {
+    return 3300;
+  }
+
+  return 3900;
 }

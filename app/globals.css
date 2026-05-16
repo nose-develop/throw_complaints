@@ -116,79 +116,646 @@ button:active {
   opacity: 0.16;
 }
 
-.throw-track {
+.polygon-scene {
+  --scene-scale: 1;
   position: relative;
-  width: min(560px, 86vw);
-  height: 300px;
+  width: min(680px, 92vw);
+  height: 380px;
+  overflow: hidden;
+  border-radius: 28px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.06) 42%,
+      rgba(15, 23, 42, 0.12) 100%
+    );
 }
 
-.thrower,
-.flying-note,
-.target-icon {
+.polygon-scene::before {
   position: absolute;
-  user-select: none;
+  inset: 0;
+  content: "";
+  opacity: var(--space-opacity);
+  background-image:
+    radial-gradient(circle at 74% 18%, rgba(255, 255, 255, 0.92) 0 2px, transparent 3px),
+    radial-gradient(circle at 62% 30%, rgba(255, 255, 255, 0.76) 0 1px, transparent 2px),
+    radial-gradient(circle at 86% 44%, rgba(255, 255, 255, 0.74) 0 1px, transparent 2px),
+    radial-gradient(circle at 48% 16%, rgba(255, 255, 255, 0.64) 0 1px, transparent 2px);
 }
 
-.thrower {
-  bottom: 22px;
+.polygon-skyline {
+  position: absolute;
+  right: 22px;
+  bottom: 0;
+  left: 34%;
+  height: 120px;
+  opacity: 0.28;
+}
+
+.polygon-skyline span {
+  position: absolute;
+  bottom: 0;
+  width: 31%;
+  background: rgba(15, 23, 42, 0.26);
+  clip-path: polygon(0 26%, 48% 0, 100% 24%, 100% 100%, 0 100%);
+}
+
+.polygon-skyline span:nth-child(1) {
+  left: 0;
+  height: 74px;
+}
+
+.polygon-skyline span:nth-child(2) {
+  left: 27%;
+  height: 118px;
+}
+
+.polygon-skyline span:nth-child(3) {
+  right: 0;
+  height: 92px;
+}
+
+.polygon-person {
+  position: absolute;
+  bottom: 28px;
+  left: clamp(18px, 7vw, 76px);
+  width: 190px;
+  height: 270px;
+  transform-origin: 50% 86%;
+  animation: polygon-body-throw var(--throw-duration) ease-in-out forwards;
+}
+
+.ground-shadow {
+  position: absolute;
+  right: 18px;
+  bottom: 0;
+  left: 8px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.28);
+  filter: blur(2px);
+  transform: skewX(-12deg);
+}
+
+.polygon-head {
+  position: absolute;
+  top: 4px;
+  left: 60px;
+  width: 78px;
+  height: 74px;
+  animation: polygon-head-throw var(--throw-duration) ease-in-out forwards;
+}
+
+.head-face,
+.body-face {
+  position: absolute;
+  inset: 0;
+}
+
+.head-face-a {
+  background: #f59e7d;
+  clip-path: polygon(12% 20%, 54% 0, 92% 22%, 78% 88%, 20% 94%);
+}
+
+.head-face-b {
+  background: #fbba8f;
+  clip-path: polygon(12% 20%, 54% 0, 46% 54%, 20% 94%);
+}
+
+.head-face-c {
+  background: #d97760;
+  clip-path: polygon(54% 0, 92% 22%, 78% 88%, 46% 54%);
+}
+
+.angry-brow,
+.eye,
+.mouth {
+  position: absolute;
+  z-index: 2;
+  background: #321b1b;
+}
+
+.angry-brow {
+  top: 25px;
+  width: 21px;
+  height: 5px;
+  border-radius: 999px;
+}
+
+.angry-brow-left {
   left: 18px;
-  font-size: clamp(4rem, 18vw, 7.5rem);
-  animation: windup 820ms ease-in-out infinite alternate;
+  transform: rotate(18deg);
 }
 
-.flying-note {
-  bottom: 78px;
-  left: 110px;
-  font-size: clamp(3rem, 12vw, 5.5rem);
-  filter: drop-shadow(0 18px 18px rgba(15, 23, 42, 0.26));
-  animation: throw-note var(--throw-duration, 1600ms) cubic-bezier(0.13, 0.64, 0.32, 1) forwards;
+.angry-brow-right {
+  right: 17px;
+  transform: rotate(-18deg);
 }
 
-.target-icon {
-  right: 16px;
+.eye {
+  top: 37px;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+}
+
+.eye-left {
+  left: 28px;
+}
+
+.eye-right {
+  right: 27px;
+}
+
+.mouth {
+  bottom: 16px;
+  left: 34px;
+  width: 24px;
+  height: 5px;
+  border-radius: 999px;
+  transform: rotate(-8deg);
+}
+
+.polygon-body {
+  position: absolute;
+  top: 78px;
+  left: 50px;
+  width: 96px;
+  height: 112px;
+  animation: polygon-torso-throw var(--throw-duration) ease-in-out forwards;
+}
+
+.body-face-a {
+  background: #0f766e;
+  clip-path: polygon(16% 0, 76% 6%, 100% 72%, 46% 100%, 0 68%);
+}
+
+.body-face-b {
+  background: #14b8a6;
+  clip-path: polygon(16% 0, 49% 36%, 46% 100%, 0 68%);
+}
+
+.body-face-c {
+  background: #0f4d5a;
+  clip-path: polygon(16% 0, 76% 6%, 100% 72%, 49% 36%);
+}
+
+.polygon-leg {
+  position: absolute;
+  bottom: 18px;
+  width: 34px;
+  height: 94px;
+  background: #1e293b;
+  transform-origin: top center;
+}
+
+.polygon-leg-left {
+  left: 60px;
+  clip-path: polygon(16% 0, 100% 6%, 72% 100%, 0 94%);
+  transform: rotate(8deg);
+}
+
+.polygon-leg-right {
+  left: 104px;
+  clip-path: polygon(0 6%, 84% 0, 100% 94%, 22% 100%);
+  transform: rotate(-8deg);
+}
+
+.polygon-arm {
+  position: absolute;
+  z-index: 5;
+  top: 88px;
+  left: 100px;
+  width: 128px;
+  height: 80px;
+  transform-origin: 10px 16px;
+}
+
+.polygon-arm-back {
+  z-index: 1;
+  left: 42px;
+  transform: rotate(25deg);
+  opacity: 0.86;
+}
+
+.polygon-arm-front {
+  animation: polygon-front-arm-throw var(--throw-duration) ease-in-out forwards;
+}
+
+.upper-arm,
+.forearm,
+.hand {
+  position: absolute;
+  display: block;
+}
+
+.upper-arm {
+  top: 10px;
+  left: 0;
+  width: 70px;
+  height: 24px;
+  background: #0f766e;
+  clip-path: polygon(0 18%, 100% 0, 86% 100%, 8% 84%);
+}
+
+.forearm {
+  top: 2px;
+  left: 58px;
+  width: 62px;
+  height: 24px;
+  background: #f59e7d;
+  clip-path: polygon(0 12%, 100% 0, 88% 92%, 6% 100%);
+  transform-origin: 5px 12px;
+  animation: polygon-forearm-throw var(--throw-duration) ease-in-out forwards;
+}
+
+.hand {
+  top: 0;
+  right: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #fbba8f;
+  box-shadow: inset -5px -3px 0 rgba(146, 64, 14, 0.18);
+}
+
+.complaint-paper {
+  position: absolute;
+  z-index: 7;
+  bottom: 146px;
+  left: clamp(136px, 24vw, 214px);
+  width: 96px;
+  height: 72px;
+  border-radius: 8px;
+  background: #fffaf0;
+  box-shadow:
+    0 14px 20px rgba(15, 23, 42, 0.24),
+    inset -14px -10px 0 rgba(226, 232, 240, 0.9);
+  clip-path: polygon(0 0, 100% 0, 100% 76%, 78% 100%, 0 100%);
+  transform-origin: 64% 78%;
+  animation: crumple-paper var(--throw-duration) ease-in-out forwards;
+}
+
+.paper-fold {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 26px;
+  height: 22px;
+  background: #dbeafe;
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+}
+
+.complaint-line {
+  position: absolute;
+  left: 16px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(244, 63, 94, 0.58);
+}
+
+.line-a {
+  top: 18px;
+  width: 56px;
+}
+
+.line-b {
+  top: 31px;
+  width: 68px;
+}
+
+.line-c {
+  top: 44px;
+  width: 48px;
+}
+
+.line-d {
+  top: 57px;
+  width: 34px;
+}
+
+.paper-ball {
+  position: absolute;
+  z-index: 8;
+  bottom: 160px;
+  left: clamp(164px, 27vw, 244px);
+  width: 42px;
+  height: 38px;
+  border-radius: 45% 55% 52% 48%;
+  background:
+    linear-gradient(135deg, #ffffff 0 34%, #e2e8f0 35% 64%, #cbd5e1 65% 100%);
+  box-shadow: 0 12px 20px rgba(15, 23, 42, 0.24);
+  clip-path: polygon(18% 0, 72% 6%, 100% 42%, 84% 88%, 32% 100%, 0 66%);
+  opacity: 0;
+  transform-origin: center;
+  animation: paper-ball-flight var(--throw-duration) cubic-bezier(0.12, 0.58, 0.2, 1) forwards;
+}
+
+.crease {
+  position: absolute;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(71, 85, 105, 0.45);
+}
+
+.crease-a {
+  top: 12px;
+  left: 11px;
+  width: 20px;
+  transform: rotate(22deg);
+}
+
+.crease-b {
   top: 22px;
-  font-size: clamp(3.4rem, 13vw, 6.5rem);
-  opacity: 0.92;
-  animation: pulse-target 1100ms ease-in-out infinite alternate;
+  left: 8px;
+  width: 25px;
+  transform: rotate(-16deg);
 }
 
-@keyframes windup {
-  from {
-    transform: rotate(-5deg) translateY(4px);
+.crease-c {
+  top: 28px;
+  left: 18px;
+  width: 16px;
+  transform: rotate(34deg);
+}
+
+.throw-arc {
+  position: absolute;
+  inset: 0;
+}
+
+.throw-arc span {
+  position: absolute;
+  width: 46px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  opacity: 0;
+  filter: blur(0.2px);
+  animation: arc-streak var(--throw-duration) ease-out forwards;
+}
+
+.throw-arc span:nth-child(1) {
+  top: 138px;
+  left: 42%;
+  transform: rotate(-32deg);
+}
+
+.throw-arc span:nth-child(2) {
+  top: 90px;
+  left: 56%;
+  width: 34px;
+  transform: rotate(-28deg);
+  animation-delay: calc(var(--throw-duration) * 0.07);
+}
+
+.throw-arc span:nth-child(3) {
+  top: 56px;
+  left: 72%;
+  width: 24px;
+  transform: rotate(-20deg);
+  animation-delay: calc(var(--throw-duration) * 0.13);
+}
+
+.destination-orb {
+  position: absolute;
+  top: 26px;
+  right: 28px;
+  display: grid;
+  width: clamp(72px, 16vw, 118px);
+  height: clamp(72px, 16vw, 118px);
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 12px 12px 22px rgba(255, 255, 255, 0.2),
+    0 24px 50px rgba(15, 23, 42, 0.22);
+  opacity: 0;
+  transform: translateY(10px) scale(0.84);
+  animation: reveal-orb var(--throw-duration) ease-out forwards;
+}
+
+.destination-orb span {
+  font-size: clamp(2.5rem, 8vw, 4.8rem);
+}
+
+@keyframes polygon-body-throw {
+  0%,
+  32% {
+    transform: rotate(0deg) translateY(0);
   }
 
-  to {
-    transform: rotate(7deg) translateY(-4px);
+  45% {
+    transform: rotate(-9deg) translate(-8px, 2px);
+  }
+
+  58% {
+    transform: rotate(14deg) translate(14px, -5px);
+  }
+
+  74%,
+  100% {
+    transform: rotate(3deg) translate(4px, 0);
   }
 }
 
-@keyframes throw-note {
-  0% {
-    opacity: 0;
-    transform: translate(0, 0) rotate(-16deg) scale(0.86);
+@keyframes polygon-head-throw {
+  0%,
+  42% {
+    transform: rotate(0deg);
   }
 
-  12% {
-    opacity: 1;
-  }
-
-  72% {
-    opacity: 1;
+  54% {
+    transform: rotate(10deg) translateX(4px);
   }
 
   100% {
-    opacity: 0.2;
-    transform: translate(min(340px, 52vw), -210px) rotate(760deg) scale(0.24);
+    transform: rotate(3deg);
   }
 }
 
-@keyframes pulse-target {
-  from {
-    transform: scale(0.95);
+@keyframes polygon-torso-throw {
+  0%,
+  34% {
+    transform: skewX(0deg);
   }
 
-  to {
-    transform: scale(1.06);
+  46% {
+    transform: skewX(-8deg);
+  }
+
+  60% {
+    transform: skewX(9deg);
+  }
+
+  100% {
+    transform: skewX(0deg);
+  }
+}
+
+@keyframes polygon-front-arm-throw {
+  0% {
+    transform: rotate(4deg) translate(0, 0);
+  }
+
+  18% {
+    transform: rotate(0deg) translate(-4px, 3px);
+  }
+
+  34% {
+    transform: rotate(-18deg) translate(-8px, 10px);
+  }
+
+  48% {
+    transform: rotate(-72deg) translate(-22px, 18px);
+  }
+
+  60% {
+    transform: rotate(44deg) translate(24px, -22px);
+  }
+
+  76%,
+  100% {
+    transform: rotate(18deg) translate(8px, -4px);
+  }
+}
+
+@keyframes polygon-forearm-throw {
+  0%,
+  28% {
+    transform: rotate(0deg);
+  }
+
+  43% {
+    transform: rotate(58deg);
+  }
+
+  60% {
+    transform: rotate(-46deg);
+  }
+
+  100% {
+    transform: rotate(-8deg);
+  }
+}
+
+@keyframes crumple-paper {
+  0% {
+    opacity: 1;
+    transform: rotate(-7deg) scale(1);
+    border-radius: 8px;
+  }
+
+  18% {
+    transform: rotate(-14deg) scale(0.86, 0.78) skew(-8deg, 5deg);
+    clip-path: polygon(10% 4%, 94% 0, 100% 70%, 76% 100%, 7% 84%);
+  }
+
+  34% {
+    opacity: 1;
+    transform: rotate(26deg) scale(0.34, 0.42);
+    border-radius: 38% 44% 52% 48%;
+    clip-path: polygon(18% 0, 72% 6%, 100% 42%, 84% 88%, 32% 100%, 0 66%);
+  }
+
+  42%,
+  100% {
+    opacity: 0;
+    transform: rotate(36deg) scale(0.1);
+  }
+}
+
+@keyframes paper-ball-flight {
+  0%,
+  32% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg) scale(0.4);
+  }
+
+  36% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(18deg) scale(1);
+  }
+
+  51% {
+    transform: translate(22px, 34px) rotate(-72deg) scale(0.94);
+  }
+
+  63% {
+    opacity: 1;
+    transform: translate(calc(var(--flight-x) * 0.36), calc(var(--flight-y) * -0.62)) rotate(260deg) scale(0.74);
+  }
+
+  82% {
+    opacity: 0.9;
+    transform: translate(calc(var(--flight-x) * 0.72), calc(var(--flight-y) * -0.92)) rotate(620deg) scale(0.42);
+  }
+
+  100% {
+    opacity: 0.08;
+    transform: translate(var(--flight-x), calc(var(--flight-y) * -1)) rotate(920deg) scale(0.16);
+  }
+}
+
+@keyframes arc-streak {
+  0%,
+  54% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(-32deg) scaleX(0.5);
+  }
+
+  66% {
+    opacity: 0.86;
+    transform: translate(18px, -18px) rotate(-32deg) scaleX(1);
+  }
+
+  86%,
+  100% {
+    opacity: 0;
+    transform: translate(66px, -44px) rotate(-32deg) scaleX(0.2);
+  }
+}
+
+@keyframes reveal-orb {
+  0%,
+  62% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.84);
+  }
+
+  82%,
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 520px) {
+  .polygon-scene {
+    height: 330px;
+  }
+
+  .polygon-person {
+    left: 2px;
+    bottom: 18px;
+    transform: scale(0.82);
+  }
+
+  .complaint-paper {
+    left: 118px;
+    bottom: 128px;
+    transform: scale(0.82);
+  }
+
+  .paper-ball {
+    left: 142px;
+    bottom: 140px;
+  }
+
+  .destination-orb {
+    top: 20px;
+    right: 14px;
   }
 }
 
@@ -199,9 +766,12 @@ button:active {
     scroll-behavior: auto !important;
   }
 
-  .thrower,
-  .flying-note,
-  .target-icon {
+  .polygon-person,
+  .polygon-person *,
+  .complaint-paper,
+  .paper-ball,
+  .throw-arc span,
+  .destination-orb {
     animation-duration: 1ms !important;
     animation-iteration-count: 1 !important;
   }

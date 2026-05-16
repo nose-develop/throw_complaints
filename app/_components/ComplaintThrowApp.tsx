@@ -7,6 +7,7 @@ import {
   getThrowDuration,
   MAX_COMPLAINT_LENGTH,
 } from "../_lib/destinations";
+import { PolygonThrowScene } from "./PolygonThrowScene";
 
 type Phase = "input" | "throwing" | "result";
 
@@ -183,23 +184,8 @@ export function ComplaintThrowApp() {
         )}
 
         {phase === "throwing" && result && (
-          <div className="throw-stage mx-auto flex min-h-[520px] w-full flex-col items-center justify-center gap-8 rounded-[32px] border border-white/50 bg-white/24 p-6 text-center shadow-[0_24px_80px_rgba(15,23,42,0.22)] backdrop-blur">
-            <div className="throw-track" aria-hidden="true">
-              <div className="thrower">😡</div>
-              <div
-                className="flying-note"
-                style={
-                  {
-                    "--throw-duration": `${getThrowDuration(
-                      result.destination.level,
-                    )}ms`,
-                  } as React.CSSProperties
-                }
-              >
-                📝
-              </div>
-              <div className="target-icon">{result.destination.icon}</div>
-            </div>
+          <div className="throw-stage mx-auto flex min-h-[560px] w-full flex-col items-center justify-center gap-7 rounded-[32px] border border-white/50 bg-white/24 p-4 text-center shadow-[0_24px_80px_rgba(15,23,42,0.22)] backdrop-blur sm:p-6">
+            <PolygonThrowScene destination={result.destination} />
             <div className="space-y-3">
               <p className="text-3xl font-black text-white drop-shadow-lg">
                 グチを投げています...
