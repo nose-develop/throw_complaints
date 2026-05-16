@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fff7ed;
+  --foreground: #111827;
 }
 
 @theme inline {
@@ -12,15 +12,197 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+.app-shell {
+  position: relative;
+  transition: background 400ms ease;
+}
+
+.theme-input {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(251, 191, 36, 0.36), transparent 28%),
+    radial-gradient(circle at 84% 12%, rgba(56, 189, 248, 0.3), transparent 24%),
+    linear-gradient(135deg, #fff7ed 0%, #fef3c7 42%, #dbeafe 100%);
+}
+
+.theme-park {
+  background:
+    linear-gradient(180deg, rgba(125, 211, 252, 0.9) 0%, rgba(240, 253, 250, 0.9) 56%, rgba(134, 239, 172, 0.95) 100%);
+}
+
+.theme-town {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(251, 191, 36, 0.34), transparent 24%),
+    linear-gradient(135deg, #bfdbfe 0%, #e0f2fe 48%, #cbd5e1 100%);
+}
+
+.theme-japan {
+  background:
+    radial-gradient(circle at 74% 22%, rgba(248, 113, 113, 0.34), transparent 18%),
+    linear-gradient(135deg, #f8fafc 0%, #bae6fd 48%, #e0f2fe 100%);
+}
+
+.theme-island {
+  background:
+    radial-gradient(circle at 78% 18%, rgba(251, 113, 133, 0.34), transparent 18%),
+    linear-gradient(145deg, #67e8f9 0%, #bae6fd 40%, #fde68a 100%);
+}
+
+.theme-overseas {
+  background:
+    radial-gradient(circle at 72% 18%, rgba(253, 186, 116, 0.42), transparent 20%),
+    linear-gradient(145deg, #38bdf8 0%, #93c5fd 46%, #fef08a 100%);
+}
+
+.theme-space {
+  background:
+    radial-gradient(circle at 74% 22%, rgba(250, 204, 21, 0.45), transparent 12%),
+    linear-gradient(145deg, #020617 0%, #1e1b4b 48%, #312e81 100%);
+}
+
+.theme-mars {
+  background:
+    radial-gradient(circle at 75% 22%, rgba(248, 113, 113, 0.5), transparent 20%),
+    linear-gradient(145deg, #2e1065 0%, #7f1d1d 48%, #fb923c 100%);
+}
+
+.theme-jupiter {
+  background:
+    radial-gradient(circle at 72% 20%, rgba(254, 215, 170, 0.54), transparent 23%),
+    linear-gradient(145deg, #1e1b4b 0%, #7c2d12 44%, #facc15 100%);
+}
+
+.theme-neptune {
+  background:
+    radial-gradient(circle at 72% 22%, rgba(34, 211, 238, 0.45), transparent 22%),
+    linear-gradient(145deg, #020617 0%, #0f2f76 42%, #06b6d4 100%);
+}
+
+.stars {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.9) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.6) 1px, transparent 1px);
+  background-position:
+    0 0,
+    28px 36px;
+  background-size:
+    96px 96px,
+    132px 132px;
+}
+
+.theme-input .stars,
+.theme-park .stars,
+.theme-town .stars,
+.theme-japan .stars,
+.theme-island .stars,
+.theme-overseas .stars {
+  opacity: 0.16;
+}
+
+.throw-track {
+  position: relative;
+  width: min(560px, 86vw);
+  height: 300px;
+}
+
+.thrower,
+.flying-note,
+.target-icon {
+  position: absolute;
+  user-select: none;
+}
+
+.thrower {
+  bottom: 22px;
+  left: 18px;
+  font-size: clamp(4rem, 18vw, 7.5rem);
+  animation: windup 820ms ease-in-out infinite alternate;
+}
+
+.flying-note {
+  bottom: 78px;
+  left: 110px;
+  font-size: clamp(3rem, 12vw, 5.5rem);
+  filter: drop-shadow(0 18px 18px rgba(15, 23, 42, 0.26));
+  animation: throw-note var(--throw-duration, 1600ms) cubic-bezier(0.13, 0.64, 0.32, 1) forwards;
+}
+
+.target-icon {
+  right: 16px;
+  top: 22px;
+  font-size: clamp(3.4rem, 13vw, 6.5rem);
+  opacity: 0.92;
+  animation: pulse-target 1100ms ease-in-out infinite alternate;
+}
+
+@keyframes windup {
+  from {
+    transform: rotate(-5deg) translateY(4px);
+  }
+
+  to {
+    transform: rotate(7deg) translateY(-4px);
+  }
+}
+
+@keyframes throw-note {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(-16deg) scale(0.86);
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  72% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.2;
+    transform: translate(min(340px, 52vw), -210px) rotate(760deg) scale(0.24);
+  }
+}
+
+@keyframes pulse-target {
+  from {
+    transform: scale(0.95);
+  }
+
+  to {
+    transform: scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+
+  .thrower,
+  .flying-note,
+  .target-icon {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
