@@ -20,6 +20,7 @@ export type Destination = {
 };
 
 export const MAX_COMPLAINT_LENGTH = 500;
+export const THROW_FLIGHT_DURATION = 2000;
 
 export const destinations: Destination[] = [
   {
@@ -122,22 +123,26 @@ export function getDestinationByLength(length: number): Destination {
   );
 }
 
-export function getThrowDuration(level: number): number {
+export function getThrowMotionDuration(level: number): number {
   if (level <= 2) {
-    return 1000;
+    return 1400;
   }
 
   if (level <= 4) {
-    return 1300;
+    return 1500;
   }
 
   if (level <= 6) {
-    return 1700;
+    return 1600;
   }
 
   if (level <= 8) {
-    return 2200;
+    return 1700;
   }
 
-  return 2800;
+  return 1800;
+}
+
+export function getThrowDuration(level: number): number {
+  return getThrowMotionDuration(level) + THROW_FLIGHT_DURATION;
 }
